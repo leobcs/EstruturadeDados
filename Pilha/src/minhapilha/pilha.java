@@ -13,22 +13,18 @@ public class pilha {
 		topo2 = tamanho;
 	}
 	
-	public Object topo1() throws xIsEmpty{
-		try {
+	public Object topo1(){
+		if (!IsEmpty()){
 			return componentes[topo1];
 		}
-		catch(ArrayIndexOutOfBoundsException e) {
-			throw new xIsEmpty();
-		}
+		throw new RuntimeException("A pilha está vazia");
 	}
 	
-	public Object topo2() throws xIsEmpty{
-		try {
+	public Object topo2(){
+		if (!IsEmpty()) {
 			return componentes[topo2];
 		}
-		catch(ArrayIndexOutOfBoundsException e) {
-			throw new xIsEmpty();
-		}
+		throw new RuntimeException("A pilha está vazia");
 	}
 	
 	public boolean IsEmpty(){
@@ -58,24 +54,21 @@ public class pilha {
 		componentes[topo2] = e;
 	}
 	
-	public Object pop1() throws xIsEmpty{
-	  try {
+	public Object pop1(){
+	  if (!IsEmpty()) {
 		  return componentes[topo1--];
 	  }
-	  catch (IndexOutOfBoundsException b) {
-		  topo1++;
-		  throw new xIsEmpty();
-	  }
+	  topo1++;
+	  throw new RuntimeException("A pilha está vazia");
 	}
-	public Object pop2() throws xIsEmpty{
-		  try {
+	
+	public Object pop2(){
+		  if (!IsEmpty()) {
 			  return componentes[topo2--];
 		  }
-		  catch (IndexOutOfBoundsException b) {
-			  topo2--;
-			  throw new xIsEmpty();
-		  }
-	}
+		  topo2--;
+		  throw new RuntimeException("A pilha está vazia");
+		}
 	
 	private void dobra() {
 		Object[] fugaz;
@@ -83,7 +76,7 @@ public class pilha {
 		for(int i = 0; i<topo1+1;i++) {
 			fugaz[i] = componentes[i];
 		}
-		for(int i = tamanho; i>topo1+1;i--) {
+		for(int i = tamanho; i>topo2+1;i--) {
 			fugaz[i] = componentes[i];
 		}
 		topo2 += tamanho;
@@ -97,12 +90,6 @@ public class pilha {
 	public int tamanho2() {
 		return tamanho-topo2;
 	}
-	public class xIsEmpty extends Exception{
-		
-		private static final long serialVersionUID = 1L;
-		
-		public xIsEmpty() {
-			super("A pilha está vazia!");
-		}
-	}
-	}
+	
+}
+
